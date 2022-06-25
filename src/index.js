@@ -30,6 +30,7 @@ function buscarcancion(e){
             headers: {
                 'X-RapidAPI-Key': '59f4081f5emshe5eef313607984ap1c3fa5jsnf51594987541',
                 'X-RapidAPI-Host': 'https://api.deezer.com'
+                
             }
         }
         /* constructor(cancion){
@@ -50,7 +51,7 @@ function buscarcancion(e){
                 }
             }; https://deezerdevs-deezer.p.rapidapi.com/artist/${this.cancion}
              */
-            fetch(`${this.API}/artist/${artista}`, this.options)
+            fetch(`${this.API}/artist/${artista}`, {mode: 'no-cors', headers: this.options})
                 .then(response => response.json())
                 .then(data => {
                     if(data.cod === "404"){
@@ -71,6 +72,7 @@ function buscarcancion(e){
         artist_name2.textContent = name
         presentation_image.src = `${picture_big}`
         nameSong.textContent = name;
+        smallImage.src = `${picture}`
     }
     function getAlbum(data){
 
