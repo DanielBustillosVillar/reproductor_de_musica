@@ -1,85 +1,85 @@
+import { getMusic } from "./api.js";
 
-const nav_main_search_form = document.querySelector('#nav_main_search_form');
-const search_button = document.querySelector('#search_button')
-const error_message = document.querySelector('#nav_main_message')
-const artist_name = document.querySelector('#artist_name')
-const artist_name2 = document.querySelector('#artist_name2')
-const presentation_image = document.querySelector('#presentation_image')
-nav_main_search_form.addEventListener('submit', buscarcancion)
+const nav_main_search_form = document.querySelector("#nav_main_search_form");
+const search_button = document.querySelector("#search_button");
+const error_message = document.querySelector("#nav_main_message");
+const artist_name = document.querySelector("#artist_name");
+const artist_name2 = document.querySelector("#artist_name2");
+const presentation_image = document.querySelector("#presentation_image");
+let items = [];
 
-function buscarcancion(e){
-    e.preventDefault();
-    const artista = document.querySelector('#input_search').value
+nav_main_search_form.addEventListener("submit", buscarcancion);
 
-    if(artista === ''){
-        //Muestra error
-        error_message.classList.remove('none')
+function buscarcancion(e) {
+  e.preventDefault();
+  results.innerHTML = "";
+  const artista = document.querySelector("#input_search").value;
 
-        setTimeout(() => {
-            error_message.classList.add('none')
-        },3000)
-        
-        return
-    }
+  if (artista === "") {
+    //Muestra error
+    error_message.classList.remove("none");
 
-    class API {
-            token = '59f4081f5emshe5eef313607984ap1c3fa5jsnf51594987541';
-            API = 'https://api.deezer.com'
-            options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '59f4081f5emshe5eef313607984ap1c3fa5jsnf51594987541',
-                'X-RapidAPI-Host': 'https://api.deezer.com'
-                
-            }
-        }
-        /* constructor(cancion){
-            this.cancion = cancion
-        } */
+    setTimeout(() => {
+      error_message.classList.add("none");
+    }, 3000);
 
-        getArtists(artista){
-            //const url = `https://api.deezer.com/${this.cancion}/27` 
-            //access_token=frM9mL0Rvqb1rKNlEjHKXEVJa1tOmWh5AgzPs6cuuNIUoCSMnmI&expires=3600
-            /* const token = 'frM9mL0Rvqb1rKNlEjHKXEVJa1tOmWh5AgzPs6cuuNIUoCSMnmI'
-            const url = `https://api.deezer.com/album/${this.cancion}
-            ` */
-            /* const options = {
-                method: 'GET',
-                headers: {
-                    'X-RapidAPI-Key': '59f4081f5emshe5eef313607984ap1c3fa5jsnf51594987541',
-                    'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
-                }
-            }; https://deezerdevs-deezer.p.rapidapi.com/artist/${this.cancion}
-             */
-            fetch(`${this.API}/artist/${artista}`, {mode: 'no-cors', headers: this.options})
-                .then(response => response.json())
-                .then(data => {
-                    if(data.cod === "404"){
-                        showError('Busqueda no encontrada')
-                        return
-                    }
+    return;
+  }
 
-                    showSongs(data)
-                })
-                .catch(err => console.error(err));
-        }
-    }
+  getMusic(artista).then(({ data: resultadosMusic }) => {
+    console.log("Resultados", resultadosMusic);
+    resultadosMusic.forEach((i) => {
+      const rmi = document.createElement("div");
+      const rmii = document.createElement("div");
+      const img = document.createElement("img");
+      const rmid = document.createElement("div");
+      const rnid = document.createElement("div");
+      const rnidt = document.createElement("div");
+      const rnida = document.createElement("div");
+      rmi.classList.add("results_main_item");
+      rmii.classList.add("results_main_item_image");
+      rmid.classList.add("results_name_item_description");
+      rnidt.classList.add("results_name_item_description_tittle");
+      rnida.classList.add("results_name_item_description_artist");
 
-    function showSongs(data){
-        const {name, picture, picture_big, tracklist} = data
-        console.log(data)
-        artist_name.textContent = name
-        artist_name2.textContent = name
-        presentation_image.src = `${picture_big}`
-        nameSong.textContent = name;
-        smallImage.src = `${picture}`
-    }
-    function getAlbum(data){
+      img.setAttribute("music", i.preview);
 
-    }
-    //Consultado API
+      img.src = i.album.cover;
+      rnidt.textContent = i.title;
+      rnida.textContent = i.artist.name;
 
-    const search = new API();
-    search.getArtists(artista)
+      rmii.appendChild(img);
+
+      rmi.appendChild(rmii);
+      rnid.appendChild(rnidt);
+      rnid.appendChild(rnida);
+
+      rmi.appendChild(rmii);
+      rmi.appendChild(rnid);
+
+      results.appendChild(rmi);
+    });
+    playMusic();
+  });
 }
+const playMusic = () => {
+  
+  items = document.querySelectorAll(".results_main_item");
+  items.forEach((i) => {
+    i.addEventListener("click", function (e) {
+      // const audioTemp = new Audio(e.target.getAttribute("music"));
+      musica.src = e.target.getAttribute("music");
+      musicaControls.load()
+      musicaControls.play();
 
+      // musica.src = e.target.getAttribute("music")
+      // console.log("item", e.target.getAttribute("music"));
+      // musicaControls.play()
+    });
+  });
+};
+
+
+volumeControl.addEventListener('input', (e) => {
+    musicaControls.volume = e.target.value / 100;
+})

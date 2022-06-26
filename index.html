@@ -84,7 +84,7 @@
             </div>
           </div>
         </div>
-        <div class="results_main">
+        <div class="results_main" id="results">
           <!-- <h2 class="results_main_tittle">Resultados</h2> -->
           <div class="results_main_item">
             <div class="results_main_item_image">
@@ -120,7 +120,7 @@
             ><button><i class="fa-solid fa-forward-step"></i></button>
           </div>
           <div class="footer_player_description_controls_volume">
-            <input type="range" name="" id="" />
+            <input type="range" name="" id="volumeControl" />
             <button>
               <i class="fa-solid fa-volume-off"></i
               ><i class="fa-solid fa-volume-high"></i>
@@ -129,6 +129,10 @@
         </div>
       </footer>
     </section>
+    <audio controls id="musicaControls" style="display: none">
+      <source src="" id="musica" type="audio/mpeg">
+    </audio>
   </body>
-  <script src="src/index.js"></script>
+  <script type="module" src="src/api.js"></script>
+  <script type="module" src="src/index.js"></script>
 </html>
