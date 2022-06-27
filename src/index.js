@@ -36,18 +36,25 @@ function buscarcancion(e) {
       const rnid = document.createElement("div");
       const rnidt = document.createElement("div");
       const rnida = document.createElement("div");
+      const hi = document.createElement("div");
+      const iE = document.createElement("i");
+      
       rmi.classList.add("results_main_item");
       rmii.classList.add("results_main_item_image");
       rmid.classList.add("results_name_item_description");
       rnidt.classList.add("results_name_item_description_tittle");
       rnida.classList.add("results_name_item_description_artist");
+      hi.classList.add("hover_item");
+      iE.classList.add("fa-solid");
+      iE.classList.add("fa-play");
 
-      img.setAttribute("music", i.preview);
-
+      hi.setAttribute("music", i.preview);
+    hi.appendChild(iE)
       img.src = i.album.cover;
       rnidt.textContent = i.title;
       rnida.textContent = i.artist.name;
 
+      rmi.appendChild(hi)
       rmii.appendChild(img);
 
       rmi.appendChild(rmii);
@@ -64,7 +71,7 @@ function buscarcancion(e) {
 }
 const playMusic = () => {
   
-  items = document.querySelectorAll(".results_main_item");
+  items = document.querySelectorAll(".hover_item");
   items.forEach((i) => {
     i.addEventListener("click", function (e) {
       // const audioTemp = new Audio(e.target.getAttribute("music"));
@@ -82,4 +89,16 @@ const playMusic = () => {
 
 volumeControl.addEventListener('input', (e) => {
     musicaControls.volume = e.target.value / 100;
+})
+
+bottonSilencio.addEventListener('click', (e) => {
+    if(musicaControls.volume == 0) {
+        bottonSilencio.classList.remove('fa-volume-high')
+        bottonSilencio.classList.add("fa-volume-off")
+        musicaControls.volume =  1;
+    }else {
+        bottonSilencio.classList.add('fa-volume-high')
+        bottonSilencio.classList.remove("fa-volume-off")
+        musicaControls.volume =  0;
+    }
 })

@@ -179,22 +179,18 @@ aside ul li:hover{
     font-size: 14px;
 }
 .results_main{
+    padding: 0 40px;
     width: 100%;
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0 40px 216px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 22px;
 }
 .results_main_tittle{
     color: var(--red-principal);
 }
 .results_main_item{
-    width: 100%;
-    max-width: 160px;
-    height: 100%;
-    max-height: 206px;
-    margin-bottom: 20px;
+    position: relative;
+    
 }
 footer{
     position: fixed;
@@ -245,4 +241,46 @@ footer button{
     height: 100%;
     justify-content: center;
     align-items: center;
+}
+
+
+.hover_item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.2);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    
+}
+.results_main_item img {
+    width: 100%;
+}
+.results_main_item:hover > .hover_item {
+    display: flex;
+}
+
+.hover_item i {
+    color: white;
+    font-size: 80px;
+}
+/* .results_main_item:hover {
+    background: #000;
+} */
+
+.results_name_item_description_tittle {
+    font-weight: bold;
+    font-size: 14px;
+}
+results_name_item_description_artist {
+    font-weight: lighter;
+    font-size: 12px;
+    color: gray;
+}
+
+.container_results_main_tittle {
+    padding: 40px;
 }
